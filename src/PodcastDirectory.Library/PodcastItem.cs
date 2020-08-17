@@ -28,24 +28,24 @@ namespace PodcastDirectory.Library
         public string ToXml()
         {
             string xml = string.Format(
-                "<item>" +
-                    "<title>{0}</title>" +
-                    "<itunes:summary>{1}</itunes:summary>" +
-                    "<description>{2}</description>" +
-                    "<link>{3}</link>" +
-                    "<enclosure url=\"{4}\" type=\"audio/mpeg\" length=\"1024\"></enclosure>" +
-                    "<pubDate>{5}</pubDate>" +
-                    "<itunes:author>{6}</itunes:author>" +
-                    "<itunes:duration>{7}</itunes:duration>" +
-                    "<itunes:explicit>no</itunes:explicit>" +
-                    "<guid>{8}</guid>" +
-                "</item>",
+                "<item>\n" +
+                    "<title>{0}</title>\n" +
+                    "<itunes:summary>{1}</itunes:summary>\n" +
+                    "<description>{2}</description>\n" +
+                    "<link>{3}</link>\n" +
+                    "<enclosure url=\"{4}\" type=\"audio/mpeg\" length=\"1024\"></enclosure>\n" +
+                    "<pubDate>{5}</pubDate>\n" +
+                    "<itunes:author>{6}</itunes:author>\n" +
+                    "<itunes:duration>{7}</itunes:duration>\n" +
+                    "<itunes:explicit>no</itunes:explicit>\n" +
+                    "<guid>{8}</guid>\n" +
+                "</item>\n",
                 Title,
                 Summary,
                 Summary,
                 PodcastBaseUrl,
                 AudioUrl,
-                PublicationDate.ToLongDateString(),
+                string.Format("{0} GMT", PublicationDate.ToUniversalTime().ToString("ddd, dd MMM yyyy HH:mm:ss")),
                 Author,
                 Duration,
                 AudioUrl

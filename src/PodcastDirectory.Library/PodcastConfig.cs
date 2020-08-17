@@ -12,6 +12,11 @@ namespace PodcastDirectory.Library
         public string DirectoryToServe { get; set; }
         public List<string> AudioExtensions { get; set; }
         public string IPAddress { get; set; }
+        public string PodcastTitle { get; set; }
+        public string PodcastDescription { get; set; }
+        public string Author { get; set; }
+        public string PodcastOwner { get; set; }
+        public string PodcastCategory { get; set; }
 
         public PodcastConfig()
         {
@@ -19,6 +24,11 @@ namespace PodcastDirectory.Library
             IPAddress = GetLocalIPAddress();
             AudioExtensions = new List<string>();
             AudioExtensions.Add(".mp3");
+            PodcastTitle = "PodcastDirectory";
+            PodcastDescription = "A directory being served as a podcast RSS feed";
+            Author = "PodcastDirectory";
+            PodcastOwner = "PodcastDirectory";
+            PodcastCategory = "Music";
         }
 
         public static string GetLocalIPAddress()
