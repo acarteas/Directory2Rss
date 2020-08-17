@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30406.217
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Directory2Rss.ConsoleApp", "Directory2Rss.ConsoleApp\Directory2Rss.ConsoleApp.csproj", "{252B1BB8-59A9-4940-BD11-90F8AE9AE820}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{33A16C24-DAC4-4F97-A7F8-61A8025ED2F2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Directory2Rss.Library", "Directory2Rss.Library\Directory2Rss.Library.csproj", "{11B8FBF1-4B12-4401-ACB7-E0D6F0FEF306}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{252B1BB8-59A9-4940-BD11-90F8AE9AE820}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{252B1BB8-59A9-4940-BD11-90F8AE9AE820}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{252B1BB8-59A9-4940-BD11-90F8AE9AE820}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{252B1BB8-59A9-4940-BD11-90F8AE9AE820}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11B8FBF1-4B12-4401-ACB7-E0D6F0FEF306}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11B8FBF1-4B12-4401-ACB7-E0D6F0FEF306}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11B8FBF1-4B12-4401-ACB7-E0D6F0FEF306}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11B8FBF1-4B12-4401-ACB7-E0D6F0FEF306}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CA0B925A-9F66-430B-A338-9038E5D9C08F}
+	EndGlobalSection
+EndGlobal
