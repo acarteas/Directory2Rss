@@ -13,7 +13,7 @@ This project allows you to temporarily host a user-specified folder on your hard
 On Windows, run ```Directory2Rss.exe```
 On Linux (assume Mac as well), run ```sudo Directory2Rss.dll``` from the terminal.
 
-Directory2Rss will then prompt you for the directory to serve, podcast title, podcast description, and podcast owner.  Defaults for each value are given in brackets
+Directory2Rss will then prompt you for the directory to serve, podcast title, podcast description, and podcast owner.  Defaults for each value are given in brackets (press enter to accept the default value):
 
 ```
 Enter directory to serve [D:\directory2rss]:
@@ -26,3 +26,9 @@ Enter podcast owner [Directory2Rss]:
 ```
 
 If you plan to stream just one audio book at a time, you will only need to alter the directory to serve (e.g. "E:\Music\Categorized\audio books\myBook").  You may need to change the other settings if you plan on downloading multiple books onto your device.
+
+After all options are entered, you should see a message about the web server starting.  Take note of the IP address listed.  In the screen shot below, the IP address is 192.168.1.10.
+
+![Server Started](docs/images/WebServerStarted.png)
+
+To test locally on your PC, visit the IP address in your favorite web browser. You should see a link to the RSS feed (http://IP_ADDRESS/rss).  Use this address to add the podcast feed to your device.  Once all of the episodes are downloaded, kill the web server (CTRL + C).  From here, you should be good to go!
