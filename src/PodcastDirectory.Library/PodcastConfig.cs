@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
-namespace PodcastDirectory.Library
+namespace Directory2Rss.Library
 {
     public class PodcastConfig
     {
@@ -14,7 +14,6 @@ namespace PodcastDirectory.Library
         public string IPAddress { get; set; }
         public string PodcastTitle { get; set; }
         public string PodcastDescription { get; set; }
-        public string Author { get; set; }
         public string PodcastOwner { get; set; }
         public string PodcastCategory { get; set; }
 
@@ -24,10 +23,9 @@ namespace PodcastDirectory.Library
             IPAddress = GetLocalIPAddress();
             AudioExtensions = new List<string>();
             AudioExtensions.Add(".mp3");
-            PodcastTitle = "PodcastDirectory";
+            PodcastTitle = "Directory2Rss";
             PodcastDescription = "A directory being served as a podcast RSS feed";
-            Author = "PodcastDirectory";
-            PodcastOwner = "PodcastDirectory";
+            PodcastOwner = "Directory2Rss";
             PodcastCategory = "Music";
         }
 

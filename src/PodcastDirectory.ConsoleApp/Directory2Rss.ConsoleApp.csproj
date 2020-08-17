@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PodcastDirectory.Library\PodcastDirectory.Library.csproj" />
+    <ProjectReference Include="..\PodcastDirectory.Library\Directory2Rss.Library.csproj" />
   </ItemGroup>
 
 </Project>

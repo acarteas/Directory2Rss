@@ -10,7 +10,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PodcastDirectory.Library.Controllers
+namespace Directory2Rss.Library.Controllers
 {
     public class PodcastDirectoryController : WebApiController
     {

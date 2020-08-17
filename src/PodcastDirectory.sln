@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30406.217
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PodcastDirectory.ConsoleApp", "PodcastDirectory.ConsoleApp\PodcastDirectory.ConsoleApp.csproj", "{4FAAD668-F7FC-4EC3-83A6-74F5C8681AB5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Directory2Rss.ConsoleApp", "PodcastDirectory.ConsoleApp\Directory2Rss.ConsoleApp.csproj", "{4FAAD668-F7FC-4EC3-83A6-74F5C8681AB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PodcastDirectory.Library", "PodcastDirectory.Library\PodcastDirectory.Library.csproj", "{5E7EAA02-4B66-4F27-843C-773F490525EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Directory2Rss.Library", "PodcastDirectory.Library\Directory2Rss.Library.csproj", "{5E7EAA02-4B66-4F27-843C-773F490525EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

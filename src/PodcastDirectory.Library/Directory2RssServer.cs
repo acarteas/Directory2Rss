@@ -1,16 +1,16 @@
 ﻿using EmbedIO;
-using PodcastDirectory.Library.Controllers;
+using Directory2Rss.Library.Controllers;
 using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PodcastDirectory.Library
+namespace Directory2Rss.Library
 {
-    public class PodcastDirectoryServer
+    public class Directory2RssServer
     {
         public PodcastConfig Config { get; set; }
-        public PodcastDirectoryServer(PodcastConfig config)
+        public Directory2RssServer(PodcastConfig config)
         {
             Config = config;
         }

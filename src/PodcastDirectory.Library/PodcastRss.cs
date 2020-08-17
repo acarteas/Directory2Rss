@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 
-namespace PodcastDirectory.Library
+namespace Directory2Rss.Library
 {
     public class PodcastRss
     {

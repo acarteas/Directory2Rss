@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PodcastDirectory.Library
+namespace Directory2Rss.Library
 {
     public class PodcastItem
     {
