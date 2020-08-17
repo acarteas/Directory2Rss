@@ -4,6 +4,9 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>Directory2Rss</AssemblyName>
+    <Authors>Adam Carter</Authors>
+    <Copyright>2020</Copyright>
+    <Product>Directory2Rss</Product>
   </PropertyGroup>
 
   <ItemGroup>
