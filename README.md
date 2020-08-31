@@ -11,11 +11,14 @@ This project allows you to temporarily host a user-specified folder on your hard
 
 ## Usage
 On Windows, run ```Directory2Rss.exe```
-On Linux (assume Mac as well), run ```sudo Directory2Rss.dll``` from the terminal.
+On Linux (assume Mac as well), run ```dotnet Directory2Rss.dll``` from the terminal.
 
 Directory2Rss will then prompt you for the directory to serve, podcast title, podcast description, and podcast owner.  Defaults for each value are given in brackets (press enter to accept the default value):
 
 ```
+Select IP address to bind:
+...
+
 Enter directory to serve [D:\directory2rss]:
 
 Enter podcast title [Directory2Rss]:
