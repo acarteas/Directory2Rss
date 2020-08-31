@@ -1,6 +1,7 @@
 ﻿using Directory2Rss.Library;
 using Swan;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -24,8 +25,29 @@ namespace Directory2Rss.ConsoleApp
         static async Task Main(string[] args)
         {
             PodcastConfig config = new PodcastConfig();
+            List<string> ipAddressList = PodcastConfig.GetLocalIpAddresses();
+            string response = "";
+            int option = -1;
+
+            Console.WriteLine("Select IP address to bind: ", config.DirectoryToServe);
+            for(int i = 0; i < ipAddressList.Count; i++)
+            {
+                Console.WriteLine("{0}: {1}", i, ipAddressList[i]);
+            }
+            response = Console.ReadLine();
+            Int32.TryParse(response, out option);
+            if(option < ipAddressList.Count)
+            {
+                config.IPAddress = ipAddressList[option];
+            }
+            else
+            {
+                Console.WriteLine("Invalid option, exiting...");
+                return;
+            }
+
             Console.WriteLine("Enter directory to serve [{0}]: ", config.DirectoryToServe);
-            string response = Console.ReadLine();
+            response = Console.ReadLine();
             if(response.Length > 0)
             {
                 if(Directory.Exists(response))
