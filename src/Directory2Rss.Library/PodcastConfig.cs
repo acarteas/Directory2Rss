@@ -29,6 +29,20 @@ namespace Directory2Rss.Library
             PodcastCategory = "Music";
         }
 
+        public static List<string> GetLocalIpAddresses()
+        {
+            List<string> result = new List<string>();
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    result.Add(ip.ToString());
+                }
+            }
+            return result;
+        }
+
         public static string GetLocalIPAddress()
         {
             var host = Dns.GetHostEntry(Dns.GetHostName());
