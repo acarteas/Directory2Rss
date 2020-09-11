@@ -16,6 +16,7 @@ namespace Directory2Rss.Library
         public string PodcastDescription { get; set; }
         public string PodcastOwner { get; set; }
         public string PodcastCategory { get; set; }
+        public string PodcastUrl { get; set; }
 
         public PodcastConfig()
         {
@@ -27,6 +28,7 @@ namespace Directory2Rss.Library
             PodcastDescription = "A directory being served as a podcast RSS feed";
             PodcastOwner = "Directory2Rss";
             PodcastCategory = "Music";
+            PodcastUrl = PodcastTitle;
         }
 
         public static List<string> GetLocalIpAddresses()
