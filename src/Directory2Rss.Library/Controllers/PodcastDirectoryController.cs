@@ -31,15 +31,15 @@ namespace Directory2Rss.Library.Controllers
             }
         }
 
-        [Route(HttpVerbs.Get, "/image")]
-        public async Task GetPodcastImage()
+        [Route(HttpVerbs.Get, "/{podcast}/image")]
+        public async Task GetPodcastImage(string podcast)
         {
             HttpContext.Response.ContentType = "image/png";
             WriteBinary(Path.Join(Directory.GetCurrentDirectory(), "GenericImage.png"));
         }
 
-        [Route(HttpVerbs.Get, "/rss")]
-        public async Task GetRssFeed()
+        [Route(HttpVerbs.Get, "/{podcast}/rss")]
+        public async Task GetRssFeed(string podcast)
         {
             string baseUrl = string.Format("http://{0}", Config.IPAddress);
             HttpContext.Response.ContentType = "text/xml";
@@ -70,7 +70,7 @@ namespace Directory2Rss.Library.Controllers
                         Author = tfile.Tag.FirstAlbumArtist,
                         Title = tfile.Tag.Title,
                         PodcastBaseUrl = baseUrl,
-                        AudioUrl = string.Format("{0}/files/{1}", baseUrl, encodedFileName),
+                        AudioUrl = string.Format("{0}/{1}/files/{2}", baseUrl, podcast, encodedFileName),
                         PublicationDate = fileDate,
                         Duration = tfile.Properties.Duration.ToString("hh\\:mm\\:ss")
                     };
@@ -81,8 +81,8 @@ namespace Directory2Rss.Library.Controllers
             }
         }
 
-        [Route(HttpVerbs.Get, "/files/{encodedFile}")]
-        public async Task GetFile(string encodedFile)
+        [Route(HttpVerbs.Get, "/{podcast}/files/{encodedFile}")]
+        public async Task GetFile(string podcast, string encodedFile)
         {
             HttpContext.Response.ContentType = "audio/mpeg";
             string decodedFile = Encoding.UTF8.GetString(Convert.FromBase64String(encodedFile));

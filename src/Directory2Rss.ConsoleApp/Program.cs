@@ -66,6 +66,11 @@ namespace Directory2Rss.ConsoleApp
             setOption(ref response, Console.ReadLine());
             config.PodcastTitle = response;
 
+            Console.WriteLine("Enter podcast URL [{0}]: ", config.PodcastUrl);
+            response = config.PodcastUrl;
+            setOption(ref response, Console.ReadLine());
+            config.PodcastUrl = response;
+
             Console.WriteLine("Enter podcast description [{0}]: ", config.PodcastDescription);
             response = config.PodcastDescription;
             setOption(ref response, Console.ReadLine());
