@@ -28,7 +28,15 @@ namespace Directory2Rss.Library.Controllers
             using (var writer = HttpContext.OpenResponseText())
             {
                 //TODO: display menu
-                writer.Write("<h1>Directory2Rss</h1>");
+                writer.WriteLine("<h1>Directory2Rss</h1>");
+                writer.WriteLine("<h2>Active Listings</h2>");
+                writer.WriteLine("<ul>");
+                foreach(var listing in Config.Listings)
+                {
+                    string url = string.Format("http://{0}/{1}/rss", Config.IPAddress, listing.Key);
+                    writer.WriteLine("<li><a href=\"{0}\">{1}</li>", url, listing.Value.PodcastTitle);
+                }
+                writer.WriteLine("</ul>");
             }
         }
 
