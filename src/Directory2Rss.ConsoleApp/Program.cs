@@ -1,14 +1,30 @@
 ﻿using Directory2Rss.Library;
+using Newtonsoft.Json;
 using Swan;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Directory2Rss.ConsoleApp
 {
     class Program
     {
+        private const string CONFIG_FILE_NAME = "config.json";
+        static void GenerateEmptyConfig()
+        {
+            PodcastConfig config = new PodcastConfig();
+            config.Listings.Add("<ENTER UNIQUE, SHORT TITLE (NO SPACES)>", new PodcastListing());
+            config.IPAddress = "<ENTER YOUR IP ADDRESS>";
+            config.Listings.FirstOrDefault().Value.PodcastTitle = "<ENTER PODCAST TITLE>";
+            config.Listings.FirstOrDefault().Value.DirectoryToServe = "<ENTER DIRECTORY THAT CONTAINS PODCAST (e.g. C:/Podcasts/MyFavoritePodcast)>";
+            using (StreamWriter writer = File.CreateText(CONFIG_FILE_NAME))
+            {
+                writer.Write(JsonConvert.SerializeObject(config, Formatting.Indented));
+            }
+        }
+
         /// <summary>
         /// Sets the referenced input variable to the supplied option if not empty
         /// </summary>
@@ -16,7 +32,7 @@ namespace Directory2Rss.ConsoleApp
         /// <param name="option"></param>
         static void setOption(ref string input, string option)
         {
-            if(option.Length > 0)
+            if (option.Length > 0)
             {
                 input = option;
             }
@@ -24,65 +40,29 @@ namespace Directory2Rss.ConsoleApp
 
         static async Task Main(string[] args)
         {
-            PodcastConfig config = new PodcastConfig();
-            List<string> ipAddressList = PodcastConfig.GetLocalIpAddresses();
-            string response = "";
-            int option = -1;
-
-            Console.WriteLine("Select IP address to bind: ", config.DirectoryToServe);
-            for(int i = 0; i < ipAddressList.Count; i++)
+            if (File.Exists(CONFIG_FILE_NAME) == false)
             {
-                Console.WriteLine("{0}: {1}", i, ipAddressList[i]);
-            }
-            response = Console.ReadLine();
-            Int32.TryParse(response, out option);
-            if(option < ipAddressList.Count)
-            {
-                config.IPAddress = ipAddressList[option];
+                Console.WriteLine("No config detected.  Generating blank config...");
+                GenerateEmptyConfig();
+                Console.WriteLine("Blank config created.  Please edit and rerun this application.");
             }
             else
             {
-                Console.WriteLine("Invalid option, exiting...");
-                return;
-            }
-
-            Console.WriteLine("Enter directory to serve [{0}]: ", config.DirectoryToServe);
-            response = Console.ReadLine();
-            if(response.Length > 0)
-            {
-                if(Directory.Exists(response))
+                PodcastConfig config = null;
+                try
                 {
-                    config.DirectoryToServe = response;
+                    config = JsonConvert.DeserializeObject<PodcastConfig>(File.ReadAllText(CONFIG_FILE_NAME));
                 }
-                else
+                catch(Exception ex)
                 {
-                    Console.WriteLine("Could not find directory, exiting...");
+                    Console.WriteLine("Existing config file corrupted.");
                     return;
                 }
+
+                Directory2RssServer server = new Directory2RssServer(config);
+                await server.StartAsync();
             }
 
-            Console.WriteLine("Enter podcast title [{0}]: ", config.PodcastTitle);
-            response = config.PodcastTitle;
-            setOption(ref response, Console.ReadLine());
-            config.PodcastTitle = response;
-
-            Console.WriteLine("Enter podcast URL [{0}]: ", config.PodcastUrl);
-            response = config.PodcastUrl;
-            setOption(ref response, Console.ReadLine());
-            config.PodcastUrl = response;
-
-            Console.WriteLine("Enter podcast description [{0}]: ", config.PodcastDescription);
-            response = config.PodcastDescription;
-            setOption(ref response, Console.ReadLine());
-            config.PodcastDescription = response;
-
-            Console.WriteLine("Enter podcast owner [{0}]: ", config.PodcastOwner);
-            response = config.PodcastOwner;
-            setOption(ref response, Console.ReadLine());
-            config.PodcastOwner = response;
-
-            Directory2RssServer server = new Directory2RssServer(config);
-            await server.StartAsync();
             Console.WriteLine("Shutting down server...");
         }
     }
