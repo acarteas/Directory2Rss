@@ -10,27 +10,13 @@ This project allows you to temporarily host a user-specified folder on your hard
 * Port 80 open on your PC's firewall (Windows will give you an UAC prompt; Linux likely must open firewall manually)
 
 ## Usage
+
+### Step #1: Create a config file
+The easiest way to get started is to rename ```config.example.json``` to ```config.json```.  Replace the placeholder text with values appropriate to your setup (e.g. IP address, directory to host, title, etc.).
+
+### Step #2: Run the application
 On Windows, run ```Directory2Rss.exe```
 On Linux (assume Mac as well), run ```dotnet Directory2Rss.dll``` from the terminal.
-
-Directory2Rss will then prompt you for the directory to serve, podcast title, podcast description, and podcast owner.  Defaults for each value are given in brackets (press enter to accept the default value):
-
-```
-Select IP address to bind:
-...
-
-Enter directory to serve [D:\directory2rss]:
-
-Enter podcast title [Directory2Rss]:
-
-Enter podcast description [A directory being served as a podcast RSS feed]:
-
-Enter podcast owner [Directory2Rss]:
-```
-
-If you plan to stream just one audio book at a time, you will only need to alter the directory to serve (e.g. "E:\Music\Categorized\audio books\myBook").  You may need to change the other settings if you plan on downloading multiple books onto your device.
-
-After all options are entered, you should see a message about the web server starting.  Take note of the IP address listed.  In the screen shot below, the IP address is 192.168.1.10.
 
 ![Server Started](docs/images/WebServerStarted.png)
 
