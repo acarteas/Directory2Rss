@@ -9,26 +9,13 @@ namespace Directory2Rss.Library
 {
     public class PodcastConfig
     {
-        public string DirectoryToServe { get; set; }
-        public List<string> AudioExtensions { get; set; }
         public string IPAddress { get; set; }
-        public string PodcastTitle { get; set; }
-        public string PodcastDescription { get; set; }
-        public string PodcastOwner { get; set; }
-        public string PodcastCategory { get; set; }
-        public string PodcastUrl { get; set; }
+        public Dictionary<string, PodcastListing> Listings { get; set; }
 
         public PodcastConfig()
         {
-            DirectoryToServe = Directory.GetCurrentDirectory();
+            Listings = new Dictionary<string, PodcastListing>();
             IPAddress = GetLocalIPAddress();
-            AudioExtensions = new List<string>();
-            AudioExtensions.Add(".mp3");
-            PodcastTitle = "Directory2Rss";
-            PodcastDescription = "A directory being served as a podcast RSS feed";
-            PodcastOwner = "Directory2Rss";
-            PodcastCategory = "Music";
-            PodcastUrl = PodcastTitle;
         }
 
         public static List<string> GetLocalIpAddresses()

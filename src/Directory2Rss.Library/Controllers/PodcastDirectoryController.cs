@@ -27,7 +27,16 @@ namespace Directory2Rss.Library.Controllers
             HttpContext.Response.ContentType = "text/html";
             using (var writer = HttpContext.OpenResponseText())
             {
-                await writer.WriteAsync(string.Format("<a href=\"http://{0}/rss\">visit the RSS feed</a>", Config.IPAddress));
+                //TODO: display menu
+                writer.WriteLine("<h1>Directory2Rss</h1>");
+                writer.WriteLine("<h2>Active Listings</h2>");
+                writer.WriteLine("<ul>");
+                foreach(var listing in Config.Listings)
+                {
+                    string url = string.Format("http://{0}/{1}/rss", Config.IPAddress, listing.Key);
+                    writer.WriteLine("<li><a href=\"{0}\">{1}</li>", url, listing.Value.PodcastTitle);
+                }
+                writer.WriteLine("</ul>");
             }
         }
 
@@ -41,55 +50,63 @@ namespace Directory2Rss.Library.Controllers
         [Route(HttpVerbs.Get, "/{podcast}/rss")]
         public async Task GetRssFeed(string podcast)
         {
-            string baseUrl = string.Format("http://{0}", Config.IPAddress);
-            HttpContext.Response.ContentType = "text/xml";
-            using(var writer = HttpContext.OpenResponseText())
+            if(Config.Listings.ContainsKey(podcast))
             {
-                PodcastRss rss = new PodcastRss(Config);
-                var files = Directory
-                    .EnumerateFiles(Config.DirectoryToServe)
-                    .Where(f => Config.AudioExtensions.Contains(Path.GetExtension(f)))
-                    .OrderBy(f => f);
-
-                //force ordering in podcast player by manipulating the dates
-                DateTime referenceDate = DateTime.UtcNow.AddDays(-files.Count() + 1);
-
-                foreach (var fileStr in files)
+                PodcastListing localConfig = Config.Listings[podcast];
+                string baseUrl = string.Format("http://{0}", Config.IPAddress);
+                HttpContext.Response.ContentType = "text/xml";
+                using (var writer = HttpContext.OpenResponseText())
                 {
-                    var tfile = TagLib.File.Create(fileStr);
-                    FileInfo fi = new FileInfo(fileStr);
-                    string encodedFileName = Convert.ToBase64String(Encoding.UTF8.GetBytes(Path.GetFileName(tfile.Name)));
-                    
-                    //each podcast item will appear on the subsequent day
-                    DateTime fileDate = new DateTime(referenceDate.Ticks);
-                    fileDate = fileDate.AddDays(1);
-                    referenceDate = new DateTime(fileDate.Ticks);
+                    PodcastRss rss = new PodcastRss(localConfig, Config.IPAddress);
+                    var files = Directory
+                        .EnumerateFiles(localConfig.DirectoryToServe)
+                        .Where(f => localConfig.AudioExtensions.Contains(Path.GetExtension(f)))
+                        .OrderBy(f => f);
 
-                    PodcastItem item = new PodcastItem()
+                    //force ordering in podcast player by manipulating the dates
+                    DateTime referenceDate = DateTime.UtcNow.AddDays(-files.Count() + 1);
+
+                    foreach (var fileStr in files)
                     {
-                        Author = tfile.Tag.FirstAlbumArtist,
-                        Title = tfile.Tag.Title,
-                        PodcastBaseUrl = baseUrl,
-                        AudioUrl = string.Format("{0}/{1}/files/{2}", baseUrl, podcast, encodedFileName),
-                        PublicationDate = fileDate,
-                        Duration = tfile.Properties.Duration.ToString("hh\\:mm\\:ss")
-                    };
-                    rss.AddItem(item);
+                        var tfile = TagLib.File.Create(fileStr);
+                        FileInfo fi = new FileInfo(fileStr);
+                        string encodedFileName = Convert.ToBase64String(Encoding.UTF8.GetBytes(Path.GetFileName(tfile.Name)));
 
+                        //each podcast item will appear on the subsequent day
+                        DateTime fileDate = new DateTime(referenceDate.Ticks);
+                        fileDate = fileDate.AddDays(1);
+                        referenceDate = new DateTime(fileDate.Ticks);
+
+                        PodcastItem item = new PodcastItem()
+                        {
+                            Author = tfile.Tag.FirstAlbumArtist,
+                            Title = tfile.Tag.Title,
+                            PodcastBaseUrl = baseUrl,
+                            AudioUrl = string.Format("{0}/{1}/files/{2}", baseUrl, podcast, encodedFileName),
+                            PublicationDate = fileDate,
+                            Duration = tfile.Properties.Duration.ToString("hh\\:mm\\:ss")
+                        };
+                        rss.AddItem(item);
+
+                    }
+                    await writer.WriteAsync(rss.ToXml());
                 }
-                await writer.WriteAsync(rss.ToXml());
             }
         }
 
         [Route(HttpVerbs.Get, "/{podcast}/files/{encodedFile}")]
         public async Task GetFile(string podcast, string encodedFile)
         {
-            HttpContext.Response.ContentType = "audio/mpeg";
-            string decodedFile = Encoding.UTF8.GetString(Convert.FromBase64String(encodedFile));
-            string filePath = Path.Join(Config.DirectoryToServe, decodedFile);
-            if(File.Exists(filePath))
+            if (Config.Listings.ContainsKey(podcast))
             {
-                WriteBinary(filePath);
+                PodcastListing localConfig = Config.Listings[podcast];
+                HttpContext.Response.ContentType = "audio/mpeg";
+                string decodedFile = Encoding.UTF8.GetString(Convert.FromBase64String(encodedFile));
+                string filePath = Path.Join(localConfig.DirectoryToServe, decodedFile);
+                if (File.Exists(filePath))
+                {
+                    WriteBinary(filePath);
+                }
             }
         }
 

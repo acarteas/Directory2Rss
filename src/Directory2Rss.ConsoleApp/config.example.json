@@ -1,0 +1,16 @@
+{
+  "IPAddress": "<ENTER YOUR IP ADDRESS>",
+  "Listings": {
+    "<ENTER UNIQUE, SHORT TITLE (NO SPACES)>": {
+      "DirectoryToServe": "<ENTER DIRECTORY THAT CONTAINS PODCAST (e.g. C:/Podcasts/MyFavoritePodcast)>",
+      "AudioExtensions": [
+        ".mp3"
+      ],
+      "PodcastTitle": "<ENTER PODCAST TITLE>",
+      "PodcastDescription": "A directory being served as a podcast RSS feed",
+      "PodcastOwner": "Directory2Rss",
+      "PodcastCategory": "Music",
+      "SortByTitle": true
+    }
+  }
+}

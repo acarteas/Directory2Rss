@@ -9,11 +9,13 @@ namespace Directory2Rss.Library
     {
         private List<PodcastItem> _items = new List<PodcastItem>();
 
-        public PodcastConfig Config { get; set; }
+        public PodcastListing Listing { get; set; }
+        public string IpAddress { get; set; }
 
-        public PodcastRss(PodcastConfig config)
+        public PodcastRss(PodcastListing listing, string ipAddress)
         {
-            Config = config;
+            Listing = listing;
+            IpAddress = ipAddress; 
         }
 
         public void AddItem(PodcastItem item)
@@ -47,13 +49,13 @@ namespace Directory2Rss.Library
                         "{7}\n" +
                     "</channel>\n" +
                 "</rss>",
-                Config.PodcastTitle,
-                string.Format("http://{0}", Config.IPAddress),
-                Config.PodcastOwner,
-                Config.PodcastDescription,
-                Config.PodcastOwner,
-                string.Format("http://{0}/image", Config.IPAddress),
-                Config.PodcastCategory,
+                Listing.PodcastTitle,
+                string.Format("http://{0}", IpAddress),
+                Listing.PodcastOwner,
+                Listing.PodcastDescription,
+                Listing.PodcastOwner,
+                string.Format("http://{0}/image", IpAddress),
+                Listing.PodcastCategory,
                 itemsXml
                 );
             return xml;
