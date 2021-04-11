@@ -7,6 +7,7 @@
         ".mp3"
       ],
       "PodcastTitle": "<ENTER PODCAST TITLE>",
+      "TrackTitleSource": "<file OR metadata> (File sets track title to the physical file name whereas metadata pulls track title from ID3 tags0",
       "PodcastDescription": "A directory being served as a podcast RSS feed",
       "PodcastOwner": "Directory2Rss",
       "PodcastCategory": "Music",

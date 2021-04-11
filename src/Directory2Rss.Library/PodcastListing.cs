@@ -10,6 +10,7 @@ namespace Directory2Rss.Library
         public string DirectoryToServe { get; set; }
         public List<string> AudioExtensions { get; set; }
         public string PodcastTitle { get; set; }
+        public string TrackTitleSource { get; set; }
         public string PodcastDescription { get; set; }
         public string PodcastOwner { get; set; }
         public string PodcastCategory { get; set; }
@@ -23,6 +24,7 @@ namespace Directory2Rss.Library
             PodcastTitle = "Directory2Rss";
             PodcastDescription = "A directory being served as a podcast RSS feed";
             PodcastOwner = "Directory2Rss";
+            TrackTitleSource = "metadata";
             PodcastCategory = "Music";
             SortByTitle = true;
         }

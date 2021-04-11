@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Web;
 
 namespace Directory2Rss.Library
 {
@@ -40,14 +41,14 @@ namespace Directory2Rss.Library
                     "<itunes:explicit>no</itunes:explicit>\n" +
                     "<guid>{8}</guid>\n" +
                 "</item>\n",
-                Title,
-                Summary,
-                Summary,
+                HttpUtility.HtmlEncode(Title),
+                HttpUtility.HtmlEncode(Summary),
+                HttpUtility.HtmlEncode(Summary),
                 PodcastBaseUrl,
                 AudioUrl,
                 string.Format("{0} GMT", PublicationDate.ToUniversalTime().ToString("ddd, dd MMM yyyy HH:mm:ss")),
-                Author,
-                Duration,
+                HttpUtility.HtmlEncode(Author),
+                HttpUtility.HtmlEncode(Duration),
                 AudioUrl
                 );
             return xml;

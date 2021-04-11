@@ -64,7 +64,7 @@ namespace Directory2Rss.Library.Controllers
                         .OrderBy(f => f);
 
                     //force ordering in podcast player by manipulating the dates
-                    DateTime referenceDate = DateTime.UtcNow.AddDays(-files.Count() + 1);
+                    DateTime referenceDate = DateTime.UtcNow.AddDays(-files.Count() + -2);
 
                     foreach (var fileStr in files)
                     {
@@ -86,6 +86,10 @@ namespace Directory2Rss.Library.Controllers
                             PublicationDate = fileDate,
                             Duration = tfile.Properties.Duration.ToString("hh\\:mm\\:ss")
                         };
+                        if(localConfig.TrackTitleSource == "file")
+                        {
+                            item.Title = fi.Name;
+                        }
                         rss.AddItem(item);
 
                     }
