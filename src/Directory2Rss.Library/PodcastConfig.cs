@@ -10,11 +10,13 @@ namespace Directory2Rss.Library
     public class PodcastConfig
     {
         public string IPAddress { get; set; }
+        public int HttpPort { get; set; }
         public Dictionary<string, PodcastListing> Listings { get; set; }
 
         public PodcastConfig()
         {
             Listings = new Dictionary<string, PodcastListing>();
+            HttpPort = 80;
             IPAddress = GetLocalIPAddress();
         }
 

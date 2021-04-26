@@ -28,7 +28,7 @@ namespace Directory2Rss.Library
         private async Task RunWebServer()
         {
             //non-admin users must run on localhost only
-            using (var server = new WebServer(string.Format("http://{0}:80", Config.IPAddress)))
+            using (var server = new WebServer(string.Format("http://{0}:{1}", Config.IPAddress, Config.HttpPort)))
             {
                 //Assembly assembly = typeof(App).Assembly;
                 PodcastDirectoryController controller = new PodcastDirectoryController(Config);
