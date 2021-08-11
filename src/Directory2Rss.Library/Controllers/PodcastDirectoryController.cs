@@ -33,7 +33,7 @@ namespace Directory2Rss.Library.Controllers
                 writer.WriteLine("<ul>");
                 foreach(var listing in Config.Listings)
                 {
-                    string url = string.Format("http://{0}/{1}/rss", Config.IPAddress, listing.Key);
+                    string url = $"http://{Config.IPAddress}:{Config.HttpPort}/{listing.Key}/rss";
                     writer.WriteLine("<li><a href=\"{0}\">{1}</li>", url, listing.Value.PodcastTitle);
                 }
                 writer.WriteLine("</ul>");
@@ -53,11 +53,10 @@ namespace Directory2Rss.Library.Controllers
             if(Config.Listings.ContainsKey(podcast))
             {
                 PodcastListing localConfig = Config.Listings[podcast];
-                string baseUrl = string.Format("http://{0}", Config.IPAddress);
                 HttpContext.Response.ContentType = "text/xml";
                 using (var writer = HttpContext.OpenResponseText())
                 {
-                    PodcastRss rss = new PodcastRss(localConfig, Config.IPAddress);
+                    PodcastRss rss = new PodcastRss(localConfig, Config.ListingUrl);
                     var files = Directory
                         .EnumerateFiles(localConfig.DirectoryToServe)
                         .Where(f => localConfig.AudioExtensions.Contains(Path.GetExtension(f)))
@@ -81,8 +80,8 @@ namespace Directory2Rss.Library.Controllers
                         {
                             Author = tfile.Tag.FirstAlbumArtist,
                             Title = tfile.Tag.Title,
-                            PodcastBaseUrl = baseUrl,
-                            AudioUrl = string.Format("{0}/{1}/files/{2}", baseUrl, podcast, encodedFileName),
+                            PodcastBaseUrl = Config.ListingUrl,
+                            AudioUrl = string.Format("{0}/{1}/files/{2}", Config.ListingUrl, podcast, encodedFileName),
                             PublicationDate = fileDate,
                             Duration = tfile.Properties.Duration.ToString("hh\\:mm\\:ss")
                         };

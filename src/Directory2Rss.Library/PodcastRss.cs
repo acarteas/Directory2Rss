@@ -10,12 +10,12 @@ namespace Directory2Rss.Library
         private List<PodcastItem> _items = new List<PodcastItem>();
 
         public PodcastListing Listing { get; set; }
-        public string IpAddress { get; set; }
+        public string ListingUrl { get; set; }
 
-        public PodcastRss(PodcastListing listing, string ipAddress)
+        public PodcastRss(PodcastListing listing, string listingUrl)
         {
             Listing = listing;
-            IpAddress = ipAddress; 
+            ListingUrl = listingUrl; 
         }
 
         public void AddItem(PodcastItem item)
@@ -50,11 +50,11 @@ namespace Directory2Rss.Library
                     "</channel>\n" +
                 "</rss>",
                 Listing.PodcastTitle,
-                string.Format("http://{0}", IpAddress),
+                ListingUrl,
                 Listing.PodcastOwner,
                 Listing.PodcastDescription,
                 Listing.PodcastOwner,
-                string.Format("http://{0}/image", IpAddress),
+                $"{ListingUrl}/image",
                 Listing.PodcastCategory,
                 itemsXml
                 );

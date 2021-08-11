@@ -1,5 +1,6 @@
 {
   "IPAddress": "<ENTER YOUR IP ADDRESS>",
+  "ListingUrl": "<ENTER PUBLIC FACING URL (e.g. http://mywebsite.com OR http://localhost)>",
   "HttpPort": "<ENTER HTTP PORT (DEFAULT IS 80)",
   "Listings": {
     "<ENTER UNIQUE, SHORT TITLE (NO SPACES)>": {
