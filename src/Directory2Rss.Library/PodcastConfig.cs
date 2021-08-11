@@ -11,6 +11,7 @@ namespace Directory2Rss.Library
     {
         public string IPAddress { get; set; }
         public int HttpPort { get; set; }
+        public string ListingUrl { get; set; }
         public Dictionary<string, PodcastListing> Listings { get; set; }
 
         public PodcastConfig()

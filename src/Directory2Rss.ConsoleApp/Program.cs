@@ -16,6 +16,7 @@ namespace Directory2Rss.ConsoleApp
         {
             PodcastConfig config = new PodcastConfig();
             config.Listings.Add("<ENTER UNIQUE, SHORT TITLE (NO SPACES)>", new PodcastListing());
+            config.ListingUrl = "<ENTER PUBLIC FACING URL (e.g. http://mywebsite.com OR http://localhost)>";
             config.IPAddress = "<ENTER YOUR IP ADDRESS>";
             config.Listings.FirstOrDefault().Value.PodcastTitle = "<ENTER PODCAST TITLE>";
             config.Listings.FirstOrDefault().Value.DirectoryToServe = "<ENTER DIRECTORY THAT CONTAINS PODCAST (e.g. C:/Podcasts/MyFavoritePodcast)>";
