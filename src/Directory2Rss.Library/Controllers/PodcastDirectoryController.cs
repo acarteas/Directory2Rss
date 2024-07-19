@@ -25,18 +25,21 @@ namespace Directory2Rss.Library.Controllers
         public async Task GetRoot()
         {
             HttpContext.Response.ContentType = "text/html";
-            using (var writer = HttpContext.OpenResponseText())
+            if (Config.ShowIndexListing)
             {
-                //TODO: display menu
-                writer.WriteLine("<h1>Directory2Rss</h1>");
-                writer.WriteLine("<h2>Active Listings</h2>");
-                writer.WriteLine("<ul>");
-                foreach(var listing in Config.Listings)
+                using (var writer = HttpContext.OpenResponseText())
                 {
-                    string url = $"http://{Config.IPAddress}:{Config.HttpPort}/{listing.Key}/rss";
-                    writer.WriteLine("<li><a href=\"{0}\">{1}</li>", url, listing.Value.PodcastTitle);
+                    //TODO: display menu
+                    writer.WriteLine("<h1>Directory2Rss</h1>");
+                    writer.WriteLine("<h2>Active Listings</h2>");
+                    writer.WriteLine("<ul>");
+                    foreach (var listing in Config.Listings)
+                    {
+                        string url = $"http://{Config.IPAddress}:{Config.HttpPort}/{listing.Key}/rss";
+                        writer.WriteLine("<li><a href=\"{0}\">{1}</li>", url, listing.Value.PodcastTitle);
+                    }
+                    writer.WriteLine("</ul>");
                 }
-                writer.WriteLine("</ul>");
             }
         }
 
@@ -50,7 +53,7 @@ namespace Directory2Rss.Library.Controllers
         [Route(HttpVerbs.Get, "/{podcast}/rss")]
         public async Task GetRssFeed(string podcast)
         {
-            if(Config.Listings.ContainsKey(podcast))
+            if (Config.Listings.ContainsKey(podcast))
             {
                 PodcastListing localConfig = Config.Listings[podcast];
                 HttpContext.Response.ContentType = "text/xml";
@@ -85,7 +88,7 @@ namespace Directory2Rss.Library.Controllers
                             PublicationDate = fileDate,
                             Duration = tfile.Properties.Duration.ToString("hh\\:mm\\:ss")
                         };
-                        if(localConfig.TrackTitleSource == "file")
+                        if (localConfig.TrackTitleSource == "file")
                         {
                             item.Title = fi.Name;
                         }
